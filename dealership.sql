@@ -122,4 +122,23 @@ VALUES
     ('2023-09-22', 103, 555555555),
     ('2023-09-23', 104, 777777777),
     ('2023-09-24', 105, 888888888);
+   
+CREATE OR REPLACE FUNCTION add_car(
+    IN p_price NUMERIC(2,9),
+    IN p_year INT,
+    IN p_make VARCHAR(25),
+    IN p_model VARCHAR(25),
+    IN p_serial_number NUMERIC,
+    IN p_service_number NUMERIC
+)
+RETURNS VOID AS $$
+BEGIN
+    INSERT INTO cars (price, "year", make, model, serial_number, service_number)
+    VALUES (p_price, p_year, p_make, p_model, p_serial_number, p_service_number);
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT add_car(300000.00, 2022, 'Lamborghini', 'Aventador', 999999999, 6);
+
+SELECT add_car(30000.00, 2022, 'Toyota', 'Corolla', 777777777, 7);
 
